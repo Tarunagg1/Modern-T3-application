@@ -40,14 +40,12 @@ import { createUser, getUserByEmail } from "../db/users";
 // };
 
 export const register = async (req: express.Request, res: express.Response) => {
-    console.log("hello");
     try {
         const { email, password, username } = req.body;
         if (!email || !password || !username) {
             return res.sendStatus(400);
         }
         const existingUser = await getUserByEmail(email);
-        console.log(existingUser);
 
         if (existingUser) {
             return res.sendStatus(409);
@@ -66,7 +64,6 @@ export const register = async (req: express.Request, res: express.Response) => {
             .json({ email: user.email, username: user.username })
             .end();
     } catch (err) {
-        console.log(err);
         throw err;
     }
 };
